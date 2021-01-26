@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:5.7.33
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: rhb
+    ports:
+      - 3306:3306
+  demo:
+    restart: always
+    build: 
+      dockerfile: dockerfile
+      context: .
+    ports:
+      - 8080:8080
+    depends_on: 
+      - db
